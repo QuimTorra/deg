@@ -3,7 +3,7 @@ from tkinter import filedialog, messagebox
 from tkinter.scrolledtext import ScrolledText
 import tkinter.font as font
 
-from effects import random_char, update
+from effects import random_char, update, bannedWords
 
 class TextEditor:
 
@@ -15,11 +15,11 @@ class TextEditor:
         root.option_add("*Font", custom_font)
 
         self.filename = None
-        self.textarea = ScrolledText(self.root, undo=True,)
+        self.textarea = ScrolledText(self.root, undo=True, wrap=tk.WORD)
         self.textarea.bind("<Key>", random_char)
         self.textarea.bind("<KeyRelease>", update)
         self.textarea.configure(font=("Comic Sans MS", 10))
-        self.textarea.tag_config("highlight", foreground="blue")
+        self.textarea.tag_config("deglight", foreground="blue", background="yellow")
         self.textarea.configure(font=custom_font)
         self.textarea.pack(fill="both", expand=True)
 
@@ -96,7 +96,9 @@ class TextEditor:
         self.textarea.event_generate("<<Paste>>")
     
     def banwords(self):
-        print(self.bannedWords)
+        print(self.textarea.get(1.0,tk.END))
+        return
+        # self.bwordsmodal = tk.
 
 if __name__ == "__main__":
     root = tk.Tk()
